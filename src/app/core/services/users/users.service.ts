@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../../environments/environment';
 
 // Models
 import {UserModel} from './model/user.model';
 
-const URL_PROVIDER = 'http://localhost:4040';
+const URL_PROVIDER = environment.instance;
 
 @Injectable({
   providedIn: 'root'

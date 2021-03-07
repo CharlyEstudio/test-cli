@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  instance: 'http://localhost:4040'
 };
