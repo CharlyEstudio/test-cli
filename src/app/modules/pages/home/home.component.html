@@ -1,1 +1,99 @@
-<p>home works!</p>
+<div class="row m-0 bg-primary">
+  <div class="col-10 py-3">
+    <p class="m-0 text-light fs-2">Angular 9 User CRUD Example</p>
+  </div>
+  <div class="col-2 py-3">
+    <button pButton type="button" label="Reload data" (click)="getUsers(true)"></button>
+  </div>
+</div>
+<div class="row m-0">
+  <div class="col-12">
+    <p-table #dt [value]="users" [paginator]="true" [rows]="5" [(first)]="first" [globalFilterFields]="['code', 'address', 'name', 'poblation', 'postalCode', 'city', 'telephone', 'email']">
+      <ng-template pTemplate="caption">
+        <div class="p-d-flex ajustar">
+          <span class="p-input-icon-left p-ml-auto">
+            <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search User" [disabled]="users.length === 0" />
+          </span>
+          <span class="p-input-icon-left p-ml-auto">
+            <button pButton type="button" label="+" (click)="addUser()"></button>
+          </span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Code</th>
+          <th>Name</th>
+          <th>Address</th>
+          <th>Poblation</th>
+          <th>Postal Code</th>
+          <th>City</th>
+          <th>Telephone</th>
+          <th>Email</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-user>
+        <tr>
+          <td>{{user.code}}</td>
+          <td>{{user.name}}</td>
+          <td>{{user.address}}</td>
+          <td>{{user.poblation}}</td>
+          <td>{{user.postalCode}}</td>
+          <td>{{user.city}}</td>
+          <td>{{user.telephone}}</td>
+          <td>{{user.email}}</td>
+          <td class="text-center">
+            <button pButton type="button" icon="pi pi-user-edit" (click)="updateUser(user)" class="p-button-info"></button>
+          </td>
+          <td class="text-center">
+            <button pButton type="button" icon="pi pi-trash" (click)="deleteUser(user)" class="p-button-danger"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+<p-dialog [header]="user ? 'Update User' : 'Add New User'" [(visible)]="display" [style]="{width: '50vw'}">
+  <form class="rw g-3" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="code" class="form-label">Code</label>
+      <input type="text" class="form-control" id="code" placeholder="Code*" formControlName="code">
+    </div>
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input type="text" class="form-control" id="name" placeholder="Name*" formControlName="name">
+    </div>
+    <div class="mb-3">
+      <label for="address" class="form-label">Address</label>
+      <input type="text" class="form-control" id="address" placeholder="Address*" formControlName="address">
+    </div>
+    <div class="mb-3">
+      <label for="poblation" class="form-label">Poblation</label>
+      <input type="text" class="form-control" id="poblation" placeholder="Poblation*" formControlName="poblation">
+    </div>
+    <div class="mb-3">
+      <label for="postalCode" class="form-label">Postal Code</label>
+      <input type="text" class="form-control" id="postalCode" placeholder="Postal Code*" formControlName="postalCode">
+    </div>
+    <div class="mb-3">
+      <label for="city" class="form-label">City</label>
+      <input type="text" class="form-control" id="city" placeholder="City*" formControlName="city">
+    </div>
+    <div class="mb-3">
+      <label for="telephone" class="form-label">Telephone</label>
+      <input type="number" class="form-control" id="telephone" placeholder="Telephone*" formControlName="telephone">
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" class="form-control" id="email" placeholder="Email*" formControlName="email">
+    </div>
+    <div class="col-auto" *ngIf="!user">
+      <button type="submit" class="btn btn-primary mb-3">Add User</button>
+    </div>
+    <div class="col-auto" *ngIf="user">
+      <button type="submit" class="btn btn-info mb-3">Update User</button>
+    </div>
+  </form>
+</p-dialog>
+<p-toast></p-toast>
