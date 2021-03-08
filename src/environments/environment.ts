@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  instance: 'http://13.56.20.106:4040'
+  instance: 'http://localhost:4040'
 };
 
 /*
